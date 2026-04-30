@@ -3,6 +3,7 @@ package routes
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"timer-api/pkg/domain/response"
 	"timer-api/pkg/domain/timer"
@@ -35,6 +36,25 @@ func (tr *TimerRouter) GetLastTimer(w http.ResponseWriter, r *http.Request) {
 	responseHelper.WriteResponse(w, status, timer)
 }
 
+func (tr *TimerRouter) DeleteTimer(w http.ResponseWriter, r *http.Request) {
+	// Only allow delete from view /start via header
+	if r.Header.Get("X-From-View") != "start" {
+		responseHelper.WriteResponse(w, response.StatusForbidden, nil)
+		return
+	}
+
+	idStr := chi.URLParam(r, "id")
+	id64, err := strconv.ParseUint(idStr, 10, 32)
+	if err != nil {
+		responseHelper.WriteResponse(w, response.StatusBadRequest, nil)
+		return
+	}
+	id := uint(id64)
+
+	status := tr.Handler.DeleteTimer(id)
+	responseHelper.WriteResponse(w, status, nil)
+}
+
 func (tr *TimerRouter) Routes() http.Handler {
 	r := chi.NewRouter()
 
@@ -53,6 +73,9 @@ func (tr *TimerRouter) Routes() http.Handler {
 	r.Post("/", tr.CreateTimer)
 
 	r.Get("/", tr.GetLastTimer)
+
+	// DELETE /{id} - hard delete, allowed only from /start view (checked via header)
+	r.Delete("/{id}", tr.DeleteTimer)
 
 	return r
 }

@@ -24,3 +24,8 @@ func (h Handler) CreateTimer(t timer.Timer) response.Status {
 func (h Handler) GetLastTimer() (timer.Timer, response.Status) {
 	return timerRepository.GetLastTimer()
 }
+
+// DeleteTimer deletes a timer by id
+func (h Handler) DeleteTimer(id uint) response.Status {
+	return timerRepository.DeleteByID(id)
+}
