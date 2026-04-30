@@ -8,9 +8,9 @@ import (
 )
 
 // CreateTimer starts/creates a new timer
-func CreateTimer(t timer.Timer) response.Status {
+func CreateTimer(t timer.Timer) (timer.Timer, response.Status) {
 	t.StartedAt = time.Now()
-	return timerRepository.Create(&t)
+	return t, timerRepository.Create(&t)
 }
 
 // GetTimer returns a timer by id

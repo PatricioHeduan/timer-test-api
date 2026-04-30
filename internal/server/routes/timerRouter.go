@@ -25,8 +25,8 @@ func (tr *TimerRouter) CreateTimer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	status := timerHandler.CreateTimer(timer)
-	responseHelper.WriteResponse(w, status, timer)
+	newTimer, status := timerHandler.CreateTimer(timer)
+	responseHelper.WriteResponse(w, status, newTimer)
 }
 
 func (tr *TimerRouter) GetLastTimer(w http.ResponseWriter, r *http.Request) {
