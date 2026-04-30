@@ -3,9 +3,9 @@ pipeline {
     environment {
         PORT = '8080'
         DB = credentials('CONNECTION_URL')
-        DOCKER_TAG = 'template-api'
-        EXTERNAL_PORT = '8083'
-        DB_NAME = 'database_name'
+        DOCKER_TAG = 'timer-api'
+        EXTERNAL_PORT = '8670'
+        DB_NAME = 'timer_db'
     }
     stages {
         stage('Build') {
