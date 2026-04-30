@@ -9,8 +9,7 @@ import (
 
 // CreateTimer starts/creates a new timer
 func CreateTimer(t timer.Timer) response.Status {
-	expireAt := time.Now().Add(time.Duration(t.Seconds) * time.Second)
-	t.ExpireAt = expireAt
+	t.StartedAt = time.Now()
 	return timerRepository.Create(&t)
 }
 
