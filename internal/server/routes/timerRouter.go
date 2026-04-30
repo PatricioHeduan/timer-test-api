@@ -37,11 +37,6 @@ func (tr *TimerRouter) GetLastTimer(w http.ResponseWriter, r *http.Request) {
 }
 
 func (tr *TimerRouter) DeleteTimer(w http.ResponseWriter, r *http.Request) {
-	// Only allow delete from view /start via header
-	if r.Header.Get("X-From-View") != "start" {
-		responseHelper.WriteResponse(w, response.StatusForbidden, nil)
-		return
-	}
 
 	idStr := chi.URLParam(r, "id")
 	id64, err := strconv.ParseUint(idStr, 10, 32)
