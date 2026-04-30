@@ -12,7 +12,7 @@ import (
 var (
 	Db *gorm.DB
 
-	databaseName  = "timer_db"
+	databaseName  = "/timer_db"
 	connectionUrl = os.Getenv("DB") + databaseName
 
 	loc = time.FixedZone("", -3*60*60)
