@@ -7,7 +7,7 @@ import (
 
 	"timer-api/pkg/domain/response"
 	"timer-api/pkg/domain/timer"
-	timerHandler "timer-api/pkg/useCases/Handlers/timerHandler"
+	"timer-api/pkg/useCases/Handlers/timerHandler"
 	"timer-api/pkg/useCases/Helpers/responseHelper"
 
 	"github.com/go-chi/chi/v5"
@@ -15,7 +15,6 @@ import (
 )
 
 type TimerRouter struct {
-	Handler timerHandler.Handler
 }
 
 func (tr *TimerRouter) CreateTimer(w http.ResponseWriter, r *http.Request) {
@@ -26,13 +25,13 @@ func (tr *TimerRouter) CreateTimer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	status := tr.Handler.CreateTimer(timer)
+	status := timerHandler.CreateTimer(timer)
 	responseHelper.WriteResponse(w, status, timer)
 }
 
 func (tr *TimerRouter) GetLastTimer(w http.ResponseWriter, r *http.Request) {
 
-	timer, status := tr.Handler.GetLastTimer()
+	timer, status := timerHandler.GetLastTimer()
 	responseHelper.WriteResponse(w, status, timer)
 }
 
@@ -44,7 +43,7 @@ func (tr *TimerRouter) DeleteTimer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	status := tr.Handler.DeleteTimer(id)
+	status := timerHandler.DeleteTimer(id)
 	responseHelper.WriteResponse(w, status, nil)
 }
 

@@ -28,7 +28,7 @@ func GetLastTimer() (timer.Timer, response.Status) {
 }
 
 // DeleteByID performs a hard delete of a timer by id
-func DeleteByID(id uint) response.Status {
+func DeleteByID(id int) response.Status {
 	db := databaseHelper.Db
 	result := db.Delete(&timer.Timer{}, id)
 	if result.Error != nil {

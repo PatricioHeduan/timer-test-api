@@ -1,4 +1,4 @@
-package timerhandler
+package timerHandler
 
 import (
 	"time"
@@ -7,25 +7,19 @@ import (
 	"timer-api/pkg/domain/timer"
 )
 
-type Handler struct{}
-
-func New() Handler {
-	return Handler{}
-}
-
 // CreateTimer starts/creates a new timer
-func (h Handler) CreateTimer(t timer.Timer) response.Status {
+func CreateTimer(t timer.Timer) response.Status {
 	expireAt := time.Now().Add(time.Duration(t.Seconds) * time.Second)
 	t.ExpireAt = expireAt
 	return timerRepository.Create(&t)
 }
 
 // GetTimer returns a timer by id
-func (h Handler) GetLastTimer() (timer.Timer, response.Status) {
+func GetLastTimer() (timer.Timer, response.Status) {
 	return timerRepository.GetLastTimer()
 }
 
 // DeleteTimer deletes a timer by id
-func (h Handler) DeleteTimer(id uint) response.Status {
+func DeleteTimer(id int) response.Status {
 	return timerRepository.DeleteByID(id)
 }
