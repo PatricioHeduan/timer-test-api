@@ -38,13 +38,11 @@ func (tr *TimerRouter) GetLastTimer(w http.ResponseWriter, r *http.Request) {
 
 func (tr *TimerRouter) DeleteTimer(w http.ResponseWriter, r *http.Request) {
 
-	idStr := chi.URLParam(r, "id")
-	id64, err := strconv.ParseUint(idStr, 10, 32)
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
 		responseHelper.WriteResponse(w, response.StatusBadRequest, nil)
 		return
 	}
-	id := uint(id64)
 
 	status := tr.Handler.DeleteTimer(id)
 	responseHelper.WriteResponse(w, status, nil)
