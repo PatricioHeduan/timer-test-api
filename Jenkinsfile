@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PORT = '8080'
-        DB = credentials('CONNECTION_URL')
+        DB = credentials('POSTGRES_CONNECTION_URL')
         DOCKER_TAG = 'timer-api'
         EXTERNAL_PORT = '8670'
         DB_NAME = 'timer_db'
